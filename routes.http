@@ -1,0 +1,31 @@
+//extensao REST Client para fazer as requisicoes
+
+POST http://localhost:3333/audios
+Content-Type: application/json
+
+{
+    "title" : "Audio teste",
+    "description" :  "Essse é o audio 01",
+    "duration": 60
+}
+
+###
+
+GET http://localhost:3333/audios?search=teste
+// http://localhost:3333/audios - lista todos os audios
+// http://localhost:3333/audios?search=palavra - lista todos os audios com palavra solicitada
+
+###
+
+PUT http://localhost:3333/audios/id
+Content-Type: application/json
+
+{
+    "title" : "Audio 6",
+    "description" :  "Essse é o audio 01",
+    "duration": 60
+}
+
+###
+
+DELETE http://localhost:3333/audios/id
