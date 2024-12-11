@@ -11,21 +11,23 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3333/audios?search=teste
+GET http://localhost:3333/audios
 // http://localhost:3333/audios - lista todos os audios
 // http://localhost:3333/audios?search=palavra - lista todos os audios com palavra solicitada
 
 ###
 
 PUT http://localhost:3333/audios/id
+// http://localhost:3333/audios/id
 Content-Type: application/json
 
 {
-    "title" : "Audio 6",
-    "description" :  "Essse é o audio 01",
+    "title" : "Audio teste",
+    "description" :  "Essse é o audio 02",
     "duration": 60
 }
 
 ###
 
 DELETE http://localhost:3333/audios/id
+// http://localhost:3333/audios/id

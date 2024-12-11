@@ -1,13 +1,15 @@
 import { fastify } from 'fastify'
-import { DatabaseMemory } from './database-memory.js'
+//import { DatabaseMemory } from './database-memory.js' // usado para memoria local
+import { DatabasePostgres } from './database-postgres.js'
 
 const server = fastify()
-const database = new DatabaseMemory()
+//const database = new DatabaseMemory()     // usado para memoria local
+const database = new DatabasePostgres()
 
-server.post('/audios', (request, reply) => {
+server.post('/audios', async (request, reply) => {
     const { title, description, duration } = request.body
 
-    database.create({
+    await database.create({
         title,
         description,
         duration,
@@ -16,18 +18,18 @@ server.post('/audios', (request, reply) => {
     return reply.status(201).send()
 })
 
-server.get('/audios', (request) => {
+server.get('/audios', async (request) => {
     const search = request.query.search
-    const audios = database.list(search)
+    const audios = await database.list(search)
 
     return audios
 })
 
-server.put('/audios/:id', (request, reply) => {
+server.put('/audios/:id', async (request, reply) => {
     const audioId = request.params.id
     const { title, description, duration } = request.body
 
-    database.update(audioId, {
+    await database.update(audioId, {
         title,
         description,
         duration,
@@ -36,16 +38,16 @@ server.put('/audios/:id', (request, reply) => {
     return reply.status(204).send()
 })
 
-server.delete('/audios/:id', (request, reply) => {
+server.delete('/audios/:id', async (request, reply) => {
     const audioId = request.params.id
 
-    database.delete(audioId)
+    await database.delete(audioId)
 
     return reply.status(204).send()
 })
 
 server.listen({
-    port: 3333,
+    port: process.env.PORT ?? 3333,
 })
 
 //npm run dev - iniciar
